@@ -23,8 +23,8 @@ runcmd:
   - service nginx restart
   - cd "/home"
   #clone GitHub Repo
-  - git clone https://github.com/Azure-Samples/js-e2e-express-mongo
-  - cd "js-e2e-express-mongo"
+  - git clone https://github.com/Azure-Samples/js-e2e-vm
+  - cd "js-e2e-vm"
   #Start app
   - npm init
   - npm start
