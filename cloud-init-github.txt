@@ -1,0 +1,30 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - nginx
+write_files:
+  - owner: www-data:www-data
+    path: /etc/nginx/sites-available/default
+    content: |
+      server {
+        listen 80;
+        location / {
+          proxy_pass http://localhost:3000;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection keep-alive;
+          proxy_set_header Host $host;
+          proxy_cache_bypass $http_upgrade;
+        }
+      }
+runcmd:
+  #install Node.js
+  - curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -;sudo apt-get install 
+  - service nginx restart
+  - cd "/home"
+  #clone GitHub Repo
+  - git clone https://github.com/Azure-Samples/js-e2e-express-mongo
+  - cd "js-e2e-express-mongo"
+  #Start app
+  - npm init
+  - npm start
