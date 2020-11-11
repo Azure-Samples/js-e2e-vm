@@ -20,11 +20,11 @@ let client = appInsights.defaultClient;
     
 app.get('/trace', (req, res) => {
     client.trackPageView();
-    const clientIP = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const clientIP = req.headers['x-forwarded-for'];
     console.log(`testing from trace route ${clientIP}`)
     client.trackTrace({ message: `testing from trace route ${clientIP}`})
     client.flush();
-    res.send('tracing...')
+    res.send('tracing...' + clientIP)
 })
 
 app.get('/', function (req, res) {
