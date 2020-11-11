@@ -1,6 +1,6 @@
-var express = require('express')
-var app = express()
-var os = require('os');
+const express = require('express')
+const app = express()
+const os = require('os');
 app.get('/', function (req, res) {
     res.send('Hello World from host ' + os.hostname() + '!')
 })
