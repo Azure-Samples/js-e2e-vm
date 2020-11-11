@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const os = require('os');
 
-////instrumentationKey: "REPLACE-WITH-YOUR-INSTRUMENTATION-KEY"
 let appInsights = require('applicationinsights');
 
 appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'REPLACE-WITH-YOUR-INSTRUMENTATION-KEY')
@@ -20,6 +19,7 @@ appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'REPLACE-WITH-YO
 let client = appInsights.defaultClient;
     
 app.get('/trace', (req, res) => {
+    client.trackPageView();
     const clientIP = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     console.log(`testing from trace route ${clientIP}`)
     client.trackTrace({ message: `testing from trace route ${clientIP}`})
@@ -28,9 +28,7 @@ app.get('/trace', (req, res) => {
 })
 
 app.get('/', function (req, res) {
-    client.trackPageView();
-    client.flush();
-    res.send('Hello World from host ' + os.hostname() + ' with logging!')
+    res.send('Hello World from host ' + os.hostname() + '!')
 })
 app.listen(3000, function () {
     console.log('Hello world app listening on port 3000!')
