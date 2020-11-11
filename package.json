@@ -4,10 +4,11 @@
     "description": "JavaScript server written with Express.js",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js"
+        "start": "pm2 start index.js --watch"
     },
     "license": "MIT",
     "dependencies": {
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "pm2": "^4.5.0"
     }
 }
