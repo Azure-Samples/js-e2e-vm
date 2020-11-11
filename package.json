@@ -4,7 +4,7 @@
     "description": "JavaScript server written with Express.js",
     "main": "index.js",
     "scripts": {
-        "start": "pm2 start index.js --watch"
+        "start": "pm2 start index.js --watch --log /var/log/pm2.log"
     },
     "license": "MIT",
     "dependencies": {
