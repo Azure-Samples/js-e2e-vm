@@ -5,7 +5,7 @@ const os = require('os');
 ////instrumentationKey: "REPLACE-WITH-YOUR-INSTRUMENTATION-KEY"
 let appInsights = require('applicationinsights');
 
-appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY || '1b6a7f0e-4a74-4786-9520-f06a82d3d05f')
+appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'REPLACE-WITH-YOUR-INSTRUMENTATION-KEY')
     .setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
     .setAutoCollectPerformance(true, true)
@@ -30,8 +30,6 @@ app.get('/trace', (req, res) => {
 app.get('/', function (req, res) {
     client.trackPageView();
     client.flush();
-    const ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress
-    console.log(`Client IP = ${ip}`)
     res.send('Hello World from host ' + os.hostname() + ' with logging!')
 })
 app.listen(3000, function () {
