@@ -28,7 +28,8 @@ app.get('/trace', (req, res) => {
 })
 
 app.get('/', function (req, res) {
-    res.send('Hello World from host ' + os.hostname() + '!')
+    const clientIP = req.headers['x-forwarded-for'];
+    res.send(`Hello World from host ' + os.hostname() + ', ${clientIP}!`)
 })
 app.listen(3000, function () {
     console.log('Hello world app listening on port 3000!')
