@@ -4,11 +4,6 @@ packages:
   - nginx
 write_files:
   - owner: www-data:www-data
-    path: /etc/environment
-    content: |
-      APPINSIGHTS_INSTRUMENTATIONKEY=
-    append: true
-  - owner: www-data:www-data
     path: /etc/nginx/sites-available/default
     content: |
       server {
