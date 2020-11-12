@@ -4,7 +4,7 @@ const os = require('os');
 
 let appInsights = require('applicationinsights');
 
-appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY || 'REPLACE-WITH-YOUR-INSTRUMENTATION-KEY')
+appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
     .setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
     .setAutoCollectPerformance(true, true)
