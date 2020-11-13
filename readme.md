@@ -1,6 +1,6 @@
 # JavaScript end-to-end deploy Express.js virtual machine to Azure
 
-The sample code is an Express.js web app. This sample is used as a base for tutorials in the [Azure JavaScript developer center](https://docs.microsoft.com/azure/developer/javascript/). 
+For a complete tutorial, please use the [Microsoft Documentation tutorial found here](https://docs.microsoft.com/en-us/azure/developer/javascript/tutorial/nodejs-virtual-machine-vm/introduction). 
 
 ## Express.js
 
