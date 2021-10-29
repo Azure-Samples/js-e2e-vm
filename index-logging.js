@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const os = require('os');
 
+console.log(JSON.stringify(process.env));
+
 let appInsights = require('applicationinsights');
 
 appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
