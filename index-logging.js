@@ -4,9 +4,12 @@ const os = require('os');
 
 console.log(JSON.stringify(process.env));
 
+let client=null;
 let appInsights = require('applicationinsights');
 
-appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
+if(process.env.APPINSIGHTS_INSTRUMENTATIONKEY){
+
+    appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
     .setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
     .setAutoCollectPerformance(true, true)
@@ -17,15 +20,25 @@ appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
     .setSendLiveMetrics(false)
     .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
     .start();
-
-let client = appInsights.defaultClient;
+    
+    client = appInsights.defaultClient;
+} else {
+    console.log(`process.env.APPINSIGHTS_INSTRUMENTATIONKEY not found`);
+}
     
 app.get('/trace', (req, res) => {
-    client.trackPageView();
+
     const clientIP = req.headers['x-forwarded-for'];
     console.log(`testing from trace route ${clientIP}`)
-    client.trackTrace({ message: `testing from trace route ${clientIP}`})
-    client.flush();
+    
+    if(client){
+        client.trackPageView();
+        client.trackTrace({ message: `testing from trace route ${clientIP}`})
+        client.flush();
+    } else {
+    console.log(`client not found`);
+}
+    
     res.send('tracing...' + clientIP)
 })
 
