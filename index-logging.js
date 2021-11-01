@@ -9,6 +9,8 @@ let appInsights = require('applicationinsights');
 
 if(process.env.APPINSIGHTS_INSTRUMENTATIONKEY){
 
+    console.log(`process.env.APPINSIGHTS_INSTRUMENTATIONKEY is found`);
+    
     appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
     .setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
@@ -32,12 +34,17 @@ app.get('/trace', (req, res) => {
     console.log(`testing from trace route ${clientIP}`)
     
     if(client){
+        
+        console.log(`client not found`);
+        
         client.trackPageView();
         client.trackTrace({ message: `testing from trace route ${clientIP}`})
         client.flush();
+        
     } else {
-    console.log(`client not found`);
-}
+        
+        console.log(`client not found`);
+    }
     
     res.send('tracing...' + clientIP)
 })
