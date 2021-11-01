@@ -38,7 +38,7 @@ app.get('/trace', (req, res) => {
         console.log(`client not found`);
         
         client.trackPageView();
-        client.trackTrace({ message: `testing from trace route ${clientIP} ${Date.now()}`})
+        client.trackTrace({ message: `testing from trace route ${clientIP} ${Date.now()}`)
         client.flush();
         
     } else {
