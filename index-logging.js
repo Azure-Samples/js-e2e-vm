@@ -4,55 +4,47 @@ const os = require('os');
 
 console.log(JSON.stringify(process.env));
 
-let client=null;
-let appInsights = require('applicationinsights');
+const AppInsights = require('applicationinsights');
 
-if(process.env.APPINSIGHTS_INSTRUMENTATIONKEY){
+AppInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
+.setAutoDependencyCorrelation(true)
+.setAutoCollectRequests(true)
+.setAutoCollectPerformance(true, true)
+.setAutoCollectExceptions(true)
+.setAutoCollectDependencies(true)
+.setAutoCollectConsole(true)
+.setUseDiskRetryCaching(true)
+.setSendLiveMetrics(false)
+.setDistributedTracingMode(AppInsights.DistributedTracingModes.AI)
+.start();
 
-    console.log(`process.env.APPINSIGHTS_INSTRUMENTATIONKEY is found ${Date.now()}`);
-    
-    appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
-    .setAutoDependencyCorrelation(true)
-    .setAutoCollectRequests(true)
-    .setAutoCollectPerformance(true, true)
-    .setAutoCollectExceptions(true)
-    .setAutoCollectDependencies(true)
-    .setAutoCollectConsole(true)
-    .setUseDiskRetryCaching(true)
-    .setSendLiveMetrics(false)
-    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
-    .start();
-    
-    client = appInsights.defaultClient;
-} else {
-    console.log(`process.env.APPINSIGHTS_INSTRUMENTATIONKEY not found ${Date.now()}`);
-}
-    
+const AppInsightsClient = AppInsights.defaultClient;
+
+   
 app.get('/trace', (req, res) => {
 
     const clientIP = req.headers['x-forwarded-for'];
-    console.log(`testing from trace route ${clientIP} ${Date.now()}`)
+    const msg = `trace route ${os.hostname()} ${clientIP} ${new Date()}`;
+
+    console.log(msg)
+
+    AppInsightsClient.trackPageView();
+    AppInsightsClient.trackTrace({ message: msg})
+    AppInsightsClient.flush();
     
-    if(client){
-        
-        console.log(`client not found`);
-        
-        client.trackPageView();
-        client.trackTrace({ message: `testing from trace route ${clientIP} ${Date.now()}`)
-        client.flush();
-        
-    } else {
-        
-        console.log(`client not found ${Date.now()}`);
-    }
-    
-    res.send('tracing...' + clientIP)
+    res.send(`${msg}`)
 })
 
 app.get('/', function (req, res) {
+
     const clientIP = req.headers['x-forwarded-for'];
-    res.send(`Hello World from host ` + os.hostname() + `, ${clientIP}! ${Date.now()}`)
+    const msg = `root route ${os.hostname()} ${clientIP} ${new Date()}`
+
+    console.log(msg)
+
+    res.send(msg)
+
 })
 app.listen(3000, function () {
-    console.log(`Hello world app listening on port 3000! ${Date.now()}`)
+    console.log(`Hello world app listening on port 3000! ${os.hostname()}`)
 })
