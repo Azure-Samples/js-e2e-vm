@@ -6,8 +6,8 @@
     "scripts": {
         "stop": "pm2 kill",
         "start": "pm2 start index.js --watch --log /var/log/pm2.log",
-        "list: "pm2 list",
-        "restart: "pm2 restart index.js"
+        "list": "pm2 list",
+        "restart": "pm2 restart index.js"
     },
     "license": "MIT",
     "dependencies": {
