@@ -28,4 +28,4 @@ runcmd:
   # Start app
   - 'cd myapp && npm install && npm start'
   # restart NGINX
-  - service nginx restart
+  - systemctl restart nginx
