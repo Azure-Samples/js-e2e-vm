@@ -37,12 +37,12 @@
           "name": "demo-vm",
           "network": {
             "privateIpAddresses": [
-              "YOUR-PRIVATE-IP"
+              "YOUR-VM-PRIVATE-IP"
             ],
             "publicIpAddresses": [
               {
                 "id": "/subscriptions/YOUR-SUBSCRIPTION-ID/resourceGroups/YOUR-RESOURCE-GROUP-NAME/providers/Microsoft.Network/publicIPAddresses/YOUR-RESOURCE-NAME-ip",
-                "ipAddress": "YOUR-PUBLIC-IP",
+                "ipAddress": "YOUR-VM-PUBLIC-IP",
                 "ipAllocationMethod": "Static",
                 "name": "YOUR-RESOURCE-NAME-ip",
                 "resourceGroup": "YOUR-RESOURCE-GROUP-NAME",
