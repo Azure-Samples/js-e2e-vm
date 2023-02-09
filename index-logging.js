@@ -24,7 +24,7 @@ const AppInsightsClient = AppInsights.defaultClient;
 app.get('/trace', (req, res) => {
 
     const clientIP = req.headers['x-forwarded-for'];
-    const msg = `trace route ${os.hostname()} ${clientIP} ${new Date()}`;
+    const msg = `trace route ${os.hostname()} ${clientIP} ${new Date()} with key ${process.env.APPINSIGHTS_INSTRUMENTATIONKEY}`;
 
     console.log(msg)
 
