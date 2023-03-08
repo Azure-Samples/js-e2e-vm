@@ -8,7 +8,7 @@ products:
 - azure-virtual-machines
 ---
 
-# Create Express.js virtual machine using Azure CLI
+# Create JavaScript Express.js virtual machine using Azure CLI
 
 
 In this tutorial, create a Linux virtual machine (VM) for an Express.js app. The VM is configured with a cloud-init configuration file and includes NGINX and a GitHub repository for an Express.js app. Connect to the VM with SSH, change the web app to including trace logging, and view the public Express.js server app in a web browser.
